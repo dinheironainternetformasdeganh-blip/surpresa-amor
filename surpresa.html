@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Surpresa 💖</title>
+
+<style>
+  :root{
+    --bg:#0b1020;
+    --accent:#ff6b99;
+    color-scheme: dark;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(180deg,#071022 0%, #0b1020 100%);
+  }
+
+  .container{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    padding:20px;
+    box-sizing:border-box;
+  }
+
+  .card{
+    width:100%;
+    max-width:900px;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    background:rgba(255,255,255,0.03);
+  }
+
+  .cover{
+    position:relative;
+    aspect-ratio:9/16;
+    background:#000;
+  }
+
+  .cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(100%) brightness(.6);
+  }
+
+  .overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    background:linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.6));
+    transition:.5s;
+  }
+
+  .hint{
+    color:white;
+    font-size:26px;
+    letter-spacing:1px;
+    text-transform:lowercase;
+  }
+
+  .button{
+    background:linear-gradient(90deg,var(--accent), #ff9ab3);
+    color:white;
+    border:none;
+    padding:16px 28px;
+    border-radius:14px;
+    font-size:20px;
+    cursor:pointer;
+  }
+
+  .reveal{
+    display:none;
+    padding:26px;
+    text-align:center;
+  }
+
+  .photo{
+    max-width:420px;
+    margin:0 auto 20px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,.6);
+  }
+
+  .photo img{
+    width:100%;
+    display:block;
+  }
+
+  .phrase{
+    font-size:22px;
+    line-height:1.4;
+    color:white;
+    font-weight:600;
+    text-shadow:0 4px 20px rgba(0,0,0,.6);
+  }
+
+  @media(max-width:600px){
+    .phrase{font-size:19px;}
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="card">
+
+    <!-- TELA INICIAL -->
+    <div class="cover" id="cover">
+      <img src="1000197106.jpg" alt="Nós dois">
+      <div class="overlay" id="overlay">
+        <div class="hint">toca nisso</div>
+        <button class="button" id="play">👉 toca nisso</button>
+      </div>
+    </div>
+
+    <!-- SURPRESA -->
+    <div class="reveal" id="reveal">
+      <div class="photo">
+        <img src="1000197106.jpg" alt="Amor">
+      </div>
+
+      <div class="phrase" id="text"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const phrases = [
+  "Entre todos os lugares do mundo, meu lugar favorito é você.",
+  "Eu te escolho hoje, amanhã e em todas as vidas. Te escolho nos dias bons e nos dias difíceis, quando tudo dá certo e quando precisamos aprender juntos. Não existe dúvida em mim, só a certeza de que é você, sempre você. Amar você é a melhor parte de mim, é onde eu sou verdadeiro, onde eu sou inteiro. Você me faz querer ser melhor todos os dias, por nós, pelo nosso futuro e pela família que vamos construir. EU TE AMO MINHA ESPOSA MÃE DOS NOSSOS FILHOS!! 🤞🏽♾️🤍🥺💍",
+  "Não é só amor… é casa, é paz, é você.",
+  "Tudo em mim sorri quando é você.",
+  "Você é o meu para sempre favorito."
+];
+
+const play = document.getElementById("play");
+const overlay = document.getElementById("overlay");
+const reveal = document.getElementById("reveal");
+const text = document.getElementById("text");
+
+let current = 1; // FRASE 2 (a principal)
+
+play.onclick = () => {
+  overlay.style.display = "none";
+  reveal.style.display = "block";
+  text.innerText = phrases[current];
+};
+
+// ABRIR AUTOMÁTICO PELO LINK
+const params = new URLSearchParams(window.location.search);
+const p = parseInt(params.get("phrase"));
+const auto = params.get("auto");
+
+if(p && phrases[p-1]){
+  current = p-1;
+}
+
+if(auto === "true"){
+  window.onload = () => {
+    overlay.style.display = "none";
+    reveal.style.display = "block";
+    text.innerText = phrases[current];
+  }
+}
+</script>
+</body>
+</html>
